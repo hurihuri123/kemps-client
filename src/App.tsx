@@ -1,11 +1,23 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Header from "./components/header";
+import UserService from "./services/user.service"
 
-class App extends Component {
+interface IProps {
+}
+
+
+class App extends React.Component<IProps> {
+  constructor(props: IProps) {
+    super(props);
+    UserService.initCurrentUser();
+
+  }
   render() {
     return (
       <div className="App">
+        <Header name={'huri'}/>
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
