@@ -7,7 +7,8 @@ import LoggerService from "../services/LoggerService";
 import {SocketStore, webSocketEvents} from "./SocketStore";
 import {User} from "../Types/user";
 
-import {filter} from 'rxjs/operators';
+// Rxjs
+import {filter, map} from 'rxjs/operators';
 
 
 
@@ -23,9 +24,11 @@ class UserStore {
 
         // Handle getUid events
         this.socketStore.getSocket()
-            .pipe(filter(data => data.event == webSocketEvents.userId ))
-            .subscribe(data => {
-                LoggerService.debug("uid event");
+            .pipe(filter(object => object.event == webSocketEvents.userId ))
+            .pipe(map(object => object.data))
+            .subscribe((data: object) => {
+                LoggerService.debug("In userId event with :", data);
+                this.socketStore.emitEvent(webSocketEvents.userId, {id: this.user.id});
             })
     }
 

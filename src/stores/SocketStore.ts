@@ -39,18 +39,10 @@ export class SocketStore {
     }
 
 
-    emitEvent(data: any) {
-        // Variable Definition
-        const {event, args} = data;
-
+    emitEvent(event: string, args: any) {
         // Code Section
         this.socket.emit(event,args);
     }
-
-    // Set identification for the connected socket
-    setSocketId = (id: number) => {
-        this.emitEvent({event: events.userId, data: id});
-    };
 
     getSocket() {
         return this.socketSubject;
