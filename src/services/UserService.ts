@@ -1,13 +1,23 @@
 import React, { Component } from 'react';
-import {User} from "../Types/user";
+import {User} from "../types/user";
 
 class UserService{
     constructor() {
     }
 
-    getUser() {
-        const user = new User(1234);
-        console.log("im here");
+    getUser(): User {
+        // const id = prompt("Please enter your id:");
+        const id = '1234';
+        return this.convertUserResponse(Number(id));
+    }
+
+    convertUserResponse(id: number): User {
+        // Variable Definition
+        const user = new User();
+
+        // Code Section
+        user.id = id;
+
         return user;
     }
 

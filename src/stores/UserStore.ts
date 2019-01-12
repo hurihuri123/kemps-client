@@ -5,7 +5,7 @@ import LoggerService from "../services/LoggerService";
 
 // Stores
 import {SocketStore, webSocketEvents} from "./SocketStore";
-import {User} from "../Types/user";
+import {User} from "../types/user";
 
 // Rxjs
 import {filter, map} from 'rxjs/operators';

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Header from "./components/header";
 import Stores from "./consts/Stores";
 import rootStores from "./stores";
+import {BrowserRouter as Router} from 'react-router-dom';
+import {Route} from "react-router";
+import Home from "./components/home/home";
 
 interface IProps {
 }
@@ -17,23 +18,11 @@ class App extends React.Component<IProps> {
   }
   render() {
     return (
-      <div className="App">
-        <Header name={'huri'}/>
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+        <Router>
+          <Route>
+            <Home/>
+          </Route>
+        </Router>
     );
   }
 }
