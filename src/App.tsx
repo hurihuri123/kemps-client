@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Header from "./components/header";
-import UserService from "./services/user.service"
+import Stores from "./consts/Stores";
+import rootStores from "./stores";
 
 interface IProps {
 }
@@ -11,7 +12,7 @@ interface IProps {
 class App extends React.Component<IProps> {
   constructor(props: IProps) {
     super(props);
-    UserService.initCurrentUser();
+    const user = rootStores[Stores.USER];
 
   }
   render() {
