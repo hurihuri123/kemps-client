@@ -4,7 +4,7 @@ import './App.css';
 import Stores from "./consts/Stores";
 import rootStores from "./stores";
 import MainApp from "./components/mainApp/index";
-import Login from "./components/login/login";
+import MainAuth from "./components/mainAuth/index";
 
 interface IProps {
 }
@@ -29,7 +29,7 @@ class App extends React.Component<IProps,IState> {
           <Route>
               {this.state.isAuthenticated ?
                   <MainApp user={rootStores[Stores.USER].getUser()}/>
-                  : <Login/>
+                  : <MainAuth/>
               }
           </Route>
         </Router>
