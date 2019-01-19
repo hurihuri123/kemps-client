@@ -39,6 +39,10 @@ class UserStore {
         this.user = UserService.getUser();
         this.socketStore.connect();
     }
+
+    getUser(): User{
+        return this.user;
+    }
 }
 
 
