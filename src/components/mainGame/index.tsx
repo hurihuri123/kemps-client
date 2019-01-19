@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route   } from 'react-router-dom'
 import Chat from "./chat/index";
 import Game from "./game/index";
+import {User} from "../../types/user";
 
 interface IProps {
+    user: User;
+    handler: any;
 }
 
 interface IState {
@@ -15,7 +18,7 @@ class MainGame extends React.Component<IProps,IState> {
         super(props);
         this.state = {
             inChat: false
-        }
+        };
 
     }
     render() {

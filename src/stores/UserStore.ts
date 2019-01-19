@@ -1,6 +1,5 @@
 // Services
 import UserService from "../services/UserService";
-import webSocketService from "../webSocket/webSocket.service";
 import LoggerService from "../services/LoggerService";
 
 // Stores

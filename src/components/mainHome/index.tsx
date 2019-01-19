@@ -4,22 +4,25 @@ import {User} from "../../types/user";
 import Home from "./home/index";
 
 interface IProps {
+    user: User;
+    handler: any;
 }
 
 interface IState {
-    isPending: boolean;
 }
 
 class MainHome extends React.Component<IProps,IState> {
     constructor(props: IProps) {
         super(props);
-
     }
+
+
+
     render() {
         return (
             <Router>
                 <Route>
-                    <Home/>
+                    <Home handler={this.props.handler}/>
                 </Route>
             </Router>
 

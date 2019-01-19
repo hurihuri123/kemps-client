@@ -1,3 +1,4 @@
 export const events = {
-    userId: 'userId',    //
+    userId: 'userId',
+    gameReady: 'gameReady'
 };

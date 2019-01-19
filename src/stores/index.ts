@@ -17,7 +17,7 @@ const userStore     = new UserStore(socketStore);
 
 const rootStores = {
     [Stores.USER]: userStore,
-    [Stores.SOCKET]: userStore,
+    [Stores.SOCKET]: socketStore,
 };
 
-export default rootStores;
+export {rootStores, Stores};

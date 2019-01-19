@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route   } from 'react-router-dom'
 import './App.css';
-import Stores from "./consts/Stores";
-import rootStores from "./stores";
+import {rootStores, Stores} from "./stores";
 import MainApp from "./components/mainApp/index";
 import MainAuth from "./components/mainAuth/index";
 

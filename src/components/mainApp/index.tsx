@@ -17,16 +17,23 @@ class MainApp extends React.Component<IProps,IState> {
         super(props);
         this.state = {
             inGame: false
-        }
-
+        };
     }
+
+    handler = (status: boolean) => {
+        this.setState({
+            inGame: status
+        });
+    };
+
+
     render() {
         return (
             <Router>
                 <Route>
                     {this.state.inGame ?
-                        <MainGame/> :
-                        <MainHome/>
+                        <MainGame user={this.props.user} handler={this.handler}/> :
+                        <MainHome user={this.props.user} handler={this.handler}/>
                     }
                 </Route>
             </Router>
