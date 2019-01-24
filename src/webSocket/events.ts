@@ -1,7 +1,9 @@
 export const events = {
+    // Request and response events
     userId: 'userId',
     joinQueue: 'joinQueue',
-    joinQueueResponse: 'joinQueueResponse',
+
+    // Response events
     gameReady: 'gameReady',
 
 };

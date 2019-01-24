@@ -29,6 +29,14 @@ export class SocketStore {
             this.socket.on(events.userId, (event: any) => {
                 observer.next(this.buildEventJson(events.userId, event));
             });
+
+            this.socket.on(events.joinQueue, (event: any) => {
+                observer.next(this.buildEventJson(events.joinQueue, event));
+            });
+
+            this.socket.on(events.gameReady, (event: any) => {
+                observer.next(this.buildEventJson(events.gameReady, event));
+            });
         });
 
         // Create emit observer

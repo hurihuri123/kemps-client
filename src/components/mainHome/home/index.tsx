@@ -27,9 +27,13 @@ class Home extends React.Component<IProps, IState> {
         };
 
         // Handle join queue response events
-        socketStore.getEvent(webSocketEvents.joinQueueResponse)
+        socketStore.getEvent(webSocketEvents.joinQueue)
             .pipe(map(object => object.status))
             .subscribe((status: boolean) => {
+                this.setState({
+                    isPending: status
+                });
+                // TODO - test status errors
                 LoggerService.debug("Join queue response :", status);
             });
 
@@ -44,7 +48,6 @@ class Home extends React.Component<IProps, IState> {
     joinQueue = () => {
         // Send JoinQueue event
         socketStore.emitEvent(webSocketEvents.joinQueue, {id: userStore.getUser().id});
-
     };
 
 
