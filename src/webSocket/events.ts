@@ -1,4 +1,7 @@
 export const events = {
     userId: 'userId',
-    gameReady: 'gameReady'
+    joinQueue: 'joinQueue',
+    joinQueueResponse: 'joinQueueResponse',
+    gameReady: 'gameReady',
+
 };

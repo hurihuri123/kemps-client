@@ -26,24 +26,25 @@ class Home extends React.Component<IProps, IState> {
             isPending: false
         };
 
-        // Handle getUid events
-        socketStore.getSocket()
-            .pipe(filter(object => object.event == webSocketEvents.gameReady && this.state.isPending ))
-            .pipe(map(object => object.data))
+        // Handle join queue response events
+        socketStore.getEvent(webSocketEvents.joinQueueResponse)
+            .pipe(map(object => object.status))
+            .subscribe((status: boolean) => {
+                LoggerService.debug("Join queue response :", status);
+            });
+
+        // Handle gameReady events
+        socketStore.getEvent(webSocketEvents.gameReady)
+            .pipe(filter( () => this.state.isPending))
             .subscribe((data: object) => {
                 LoggerService.debug("In gameReady event :", data);
-            })
+            });
     }
 
     joinQueue = () => {
-        // Send HTTP request
-        HttpService.post("http://localhost:3000/joinGameQueue",{uid: userStore.getUser().id}, null)
-            .then(response => {
-                Logger.debug("JoinQueue response : ", response);
-            })
-            .catch( err => {
-                Logger.error("JoinQueue Error : ", err);
-            })
+        // Send JoinQueue event
+        socketStore.emitEvent(webSocketEvents.joinQueue, {id: userStore.getUser().id});
+
     };
 
 

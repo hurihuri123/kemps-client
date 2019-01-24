@@ -1,6 +1,8 @@
 import webSocketService from "../webSocket/webSocket.service";
 import {Observable, Subject} from 'rxjs';
 import {events} from "../webSocket/events";
+import {filter, map} from 'rxjs/operators';
+import LoggerService from "../services/LoggerService";
 
 
 
@@ -46,6 +48,12 @@ export class SocketStore {
 
     getSocket() {
         return this.socketSubject;
+    }
+
+    getEvent(eventName: string) {
+        return this.getSocket()
+            .pipe(filter(object => object.event == eventName))
+            .pipe(map(object => object.data))
     }
 
     buildEventJson(event: string, data: any): Object {

@@ -22,13 +22,11 @@ class UserStore {
 
 
         // Handle getUid events
-        this.socketStore.getSocket()
-            .pipe(filter(object => object.event == webSocketEvents.userId ))
-            .pipe(map(object => object.data))
+        this.socketStore.getEvent(webSocketEvents.userId)
             .subscribe((data: object) => {
                 LoggerService.debug("In userId event with :", data);
                 this.socketStore.emitEvent(webSocketEvents.userId, {id: this.user.id});
-            })
+            });
     }
 
     initCurrentUser(): void {
