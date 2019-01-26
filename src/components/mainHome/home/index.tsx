@@ -37,7 +37,8 @@ class Home extends React.Component<IProps, IState> {
             .pipe(map(object => object.status))
             .subscribe((status: boolean) => {
                 this.setState({
-                    isPending: status
+                    isPending: status,
+                    queueRoom: new Room()
                 });
                 // TODO - test status errors
                 LoggerService.debug("Join queue response :", status);
