@@ -3,9 +3,11 @@ import { BrowserRouter as Router, Route   } from 'react-router-dom'
 import Chat from "./chat/index";
 import Game from "./game/index";
 import {User} from "../../types/user";
+import {Room} from "../../types/room";
 
 interface IProps {
     user: User;
+    room: Room;
     handler: any;
 }
 

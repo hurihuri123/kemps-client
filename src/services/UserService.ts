@@ -6,8 +6,7 @@ class UserService{
     }
 
     getUser(): User {
-        // const id = prompt("Please enter your id:");
-        const id = '1234';
+        const id = prompt("Please enter your id:");
         return this.convertUserResponse(Number(id));
     }
 

@@ -37,6 +37,10 @@ export class SocketStore {
             this.socket.on(events.gameReady, (event: any) => {
                 observer.next(this.buildEventJson(events.gameReady, event));
             });
+
+            this.socket.on(events.startChat, (event: any) => {
+                observer.next(this.buildEventJson(events.startChat, event));
+            });
         });
 
         // Create emit observer

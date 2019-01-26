@@ -5,7 +5,8 @@ import Home from "./home/index";
 
 interface IProps {
     user: User;
-    handler: any;
+    gameStateHandler: any;
+    roomStateHandler: any;
 }
 
 interface IState {
@@ -22,7 +23,7 @@ class MainHome extends React.Component<IProps,IState> {
         return (
             <Router>
                 <Route>
-                    <Home handler={this.props.handler}/>
+                    <Home user={this.props.user} roomStateHandler={this.props.roomStateHandler} gameStateHandler={this.props.gameStateHandler}/>
                 </Route>
             </Router>
 
