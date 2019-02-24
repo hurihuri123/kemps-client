@@ -5,12 +5,13 @@ import {rootStores, Stores} from "../../../../stores";
 import {webSocketEvents} from "../../../../stores/SocketStore";
 import LoggerService from "../../../../services/LoggerService";
 import {User} from "../../../../types/user";
+import GameStore from "../../../../stores/GameStore";
 
 // Stores
 const socketStore   = rootStores[Stores.SOCKET];
+const gameStore: GameStore= rootStores[Stores.GAME];
 
 interface IProps {
-    room: Room;
     user: User;
 }
 
@@ -25,9 +26,19 @@ class Timer extends React.Component<IProps,IState> {
     constructor(props: IProps) {
         super(props);
         this.state = {
-            intervalId: setInterval(this.handleTick, 1000),
-            countDown: 5
+            intervalId: null,
+            countDown: 10
         };
+    }
+
+    componentDidMount() {
+        this.setState({
+            intervalId: setInterval(this.handleTick, 1000)
+        })
+    }
+
+    componentWillUnmount() {
+        console.log('component unmount');
     }
 
     handleTick = (): void => {
@@ -36,12 +47,13 @@ class Timer extends React.Component<IProps,IState> {
         if (this.state.countDown > 0) {
             return;
         }
+        const room:Room = gameStore.room;
         // Timer is over
         clearInterval(this.state.intervalId); // Terminate timer
-        if (this.props.room.isCurrentUserManager) {
+        if (room.isCurrentUserManager) {
             // Send time over event
-            socketStore.emitEvent(webSocketEvents.timerOver, {roomId: this.props.room.id});
-            LoggerService.debug("Emitting timerOver event with roomId ", this.props.room.id);
+            socketStore.emitEvent(webSocketEvents.timerOver, {roomId: room.id});
+            LoggerService.debug("Emitting timerOver event with roomId ", room.id);
         }
 
     };
@@ -54,7 +66,7 @@ class Timer extends React.Component<IProps,IState> {
 
     imReady = () => {
         // Send ImReady event
-        socketStore.emitEvent(webSocketEvents.imReady, {roomId: this.props.room.id, id: this.props.user.id});
+        socketStore.emitEvent(webSocketEvents.imReady, {roomId: gameStore.room.id, id: this.props.user.id});
     };
 
 

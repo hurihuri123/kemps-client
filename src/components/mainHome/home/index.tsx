@@ -1,35 +1,35 @@
 import * as React from 'react';
 import {rootStores, Stores} from "../../../stores/index";
 import {filter, map} from 'rxjs/operators';
-import Logger from "../../../services/LoggerService";
 import LoggerService from "../../../services/LoggerService";
-import {webSocketEvents} from "../../../stores/SocketStore";
-import HttpService from "../../../services/HttpService";
+import {SocketStore, webSocketEvents} from "../../../stores/SocketStore";
 import {Room} from "../../../types/room";
 import {User} from "../../../types/user";
 import Timer from "./timer/timer";
+import GameStore from "../../../stores/GameStore";
+import {observer} from "mobx-react";
+import {action, computed} from "mobx";
+
 
 // Stores
-const socketStore   = rootStores[Stores.SOCKET];
+const socketStore:  SocketStore       = rootStores[Stores.SOCKET];
+const gameStore:    GameStore       = rootStores[Stores.GAME];
 
 interface IProps {
     user: User;
     gameStateHandler: any;
-    roomStateHandler: any;
 }
 
 interface IState {
     isPending: boolean;
-    queueRoom: Room;
 }
 
-
+@observer
 class Home extends React.Component<IProps, IState> {
     constructor(props: IProps) {
         super(props);
         this.state = {
             isPending: false,
-            queueRoom: new Room()
         };
 
         // Handle join queue response events
@@ -38,9 +38,8 @@ class Home extends React.Component<IProps, IState> {
             .subscribe((status: boolean) => {
                 this.setState({
                     isPending: status,
-                    queueRoom: new Room()
                 });
-                // TODO - test status errors
+                // TODO - test status errors12
                 LoggerService.debug("Join queue response :", status);
             });
 
@@ -50,9 +49,7 @@ class Home extends React.Component<IProps, IState> {
             .pipe(map(data => this.convertRoomResponse(data)))
             .subscribe((room: Room) => {
                 LoggerService.debug("In gameReady event :", room);
-                this.setState({
-                   queueRoom: room
-                });
+                gameStore.setRoom(room);
             });
 
         // Handle startChat event
@@ -81,10 +78,12 @@ class Home extends React.Component<IProps, IState> {
 
 
     render() {
+        const {id} = gameStore.room;
         return (
             <div>
                 <button onClick={this.joinQueue}>Join Queue</button>
-                {this.state.queueRoom.id ? <Timer user={this.props.user} room={this.state.queueRoom} /> : null}
+                {id}
+                {id ? <Timer user={this.props.user} /> : null}
             </div>
         );
     }

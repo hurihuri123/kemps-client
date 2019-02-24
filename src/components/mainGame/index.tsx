@@ -7,7 +7,6 @@ import {Room} from "../../types/room";
 
 interface IProps {
     user: User;
-    room: Room;
     handler: any;
 }
 

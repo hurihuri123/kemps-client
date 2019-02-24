@@ -11,15 +11,13 @@ interface IProps {
 
 interface IState {
     inGame: boolean;
-    room: Room;
 }
 
 class MainApp extends React.Component<IProps,IState> {
     constructor(props: IProps) {
         super(props);
         this.state = {
-            inGame: false,
-            room: new Room()
+            inGame: false
         };
     }
 
@@ -29,17 +27,14 @@ class MainApp extends React.Component<IProps,IState> {
         });
     };
 
-    roomStateHandler = (room: Room) => {
-    };
-
 
     render() {
         return (
             <Router>
                 <Route>
                     {this.state.inGame ?
-                        <MainGame user={this.props.user} room={this.state.room} handler={this.gameStateHandler}/> :
-                        <MainHome user={this.props.user} roomStateHandler={this.roomStateHandler}  gameStateHandler={this.gameStateHandler}/>
+                        <MainGame user={this.props.user} handler={this.gameStateHandler}/> :
+                        <MainHome user={this.props.user}  gameStateHandler={this.gameStateHandler}/>
                     }
                 </Route>
             </Router>
