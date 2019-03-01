@@ -4,31 +4,41 @@ import './App.css';
 import {rootStores, Stores} from "./stores";
 import MainApp from "./components/mainApp/index";
 import MainAuth from "./components/mainAuth/index";
+import UserStore from "./stores/UserStore";
+import {User} from "./types/user";
+import {webSocketEvents} from "./stores/SocketStore";
+import LoggerService from "./services/LoggerService";
 
 interface IProps {
 }
 
 interface IState {
     isAuthenticated: boolean;
-    isLoading: boolean
 }
 
 class App extends React.Component<IProps,IState> {
   constructor(props: IProps) {
     super(props);
       this.state = {
-          isAuthenticated: true,
-          isLoading: false,
-      }
-
+          isAuthenticated: false,
+      };
   }
+
+
+    setAuthenticated = (status: boolean) => {
+        this.setState({
+            isAuthenticated: status
+        });
+    };
+
   render() {
+      const {isAuthenticated} = this.state;
     return (
         <Router>
           <Route>
-              {this.state.isAuthenticated ?
-                  <MainApp user={rootStores[Stores.USER].getUser()}/>
-                  : <MainAuth/>
+              {isAuthenticated ?
+                  <MainApp/>
+                  : <MainAuth setAuthenticated={this.setAuthenticated} />
               }
           </Route>
         </Router>

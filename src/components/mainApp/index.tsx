@@ -4,22 +4,38 @@ import {User} from "../../types/user";
 import MainGame from "../mainGame/index";
 import MainHome from "../mainHome/index";
 import {Room} from "../../types/room";
+import {observer} from "mobx-react";
+import {rootStores, Stores} from "../../stores";
+import UserStore from "../../stores/UserStore";
 
 interface IProps {
-    user: User;
 }
 
 interface IState {
     inGame: boolean;
+    isLoading: boolean;
+    user: User;
 }
 
+const userStore: UserStore = rootStores[Stores.USER];
+
+
+@observer
 class MainApp extends React.Component<IProps,IState> {
     constructor(props: IProps) {
         super(props);
         this.state = {
-            inGame: false
+            inGame: false,
+            isLoading: true,
+            user: userStore.getUser
         };
-        console.log("user is : ", this.props.user);
+    }
+
+    componentDidMount() {
+        userStore.initCurrentUser()
+            .then( () =>{
+                this.setState({isLoading: false})
+            });
     }
 
     gameStateHandler = (status: boolean) => {
@@ -30,12 +46,13 @@ class MainApp extends React.Component<IProps,IState> {
 
 
     render() {
+        const {inGame, user} = this.state;
         return (
             <Router>
                 <Route>
-                    {this.state.inGame ?
-                        <MainGame user={this.props.user} handler={this.gameStateHandler}/> :
-                        <MainHome user={this.props.user}  gameStateHandler={this.gameStateHandler}/>
+                    {inGame ?
+                        <MainGame user={user} handler={this.gameStateHandler}/> :
+                        <MainHome user={user}  gameStateHandler={this.gameStateHandler}/>
                     }
                 </Route>
             </Router>

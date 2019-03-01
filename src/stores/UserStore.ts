@@ -21,15 +21,6 @@ class UserStore {
 
     constructor(socketStore: SocketStore) {
         this.socketStore = socketStore;
-        this.initCurrentUser()
-            .then( () => {
-                // Handle getUid events
-                this.socketStore.getEvent(webSocketEvents.userId)
-                    .subscribe((data: object) => {
-                        LoggerService.debug("In userId event with :", data);
-                        this.socketStore.emitEvent(webSocketEvents.userId, {id: this.user.id, nickname: this.user.nickname});
-                    });
-            })
     }
 
     @action
@@ -43,6 +34,15 @@ class UserStore {
             })
             .then( () => {
                 this.socketStore.connect();
+            })
+            .then( () => {
+                // Handle getUid events
+                this.socketStore.getEvent(webSocketEvents.userId)
+                    .subscribe((data: object) => {
+                        LoggerService.debug("In userId event with :", data);
+                        this.socketStore.emitEvent(webSocketEvents.userId, {id: this.user.id, nickname: this.user.nickname});
+                    });
+                console.log(this.getUser);
             })
     }
 

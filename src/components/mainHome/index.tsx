@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route   } from 'react-router-dom'
 import {User} from "../../types/user";
 import Home from "./home/index";
+import {observer} from "mobx-react";
 
 interface IProps {
     user: User;
@@ -11,6 +12,7 @@ interface IProps {
 interface IState {
 }
 
+@observer
 class MainHome extends React.Component<IProps,IState> {
     constructor(props: IProps) {
         super(props);
