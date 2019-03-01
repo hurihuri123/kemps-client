@@ -32,8 +32,6 @@ class Home extends React.Component<IProps, IState> {
             isPending: false,
         };
 
-        console.log(this.props.user);
-
         // Handle join queue response events
         socketStore.getEvent(webSocketEvents.joinQueue)
             .pipe(map(object => object.status))
@@ -80,11 +78,11 @@ class Home extends React.Component<IProps, IState> {
 
 
     render() {
-        const {id} = gameStore.room;
+        const {id} = gameStore.getRoom;
         return (
             <div>
                 <button onClick={this.joinQueue}>Join Queue</button>
-                {id}
+                {"game room "  + id}
                 {id ? <Timer user={this.props.user} /> : null}
             </div>
         );

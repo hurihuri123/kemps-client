@@ -13,7 +13,6 @@ interface IProps {
 
 interface IState {
     inGame: boolean;
-    isLoading: boolean;
     user: User;
 }
 
@@ -26,16 +25,8 @@ class MainApp extends React.Component<IProps,IState> {
         super(props);
         this.state = {
             inGame: false,
-            isLoading: true,
             user: userStore.getUser
         };
-    }
-
-    componentDidMount() {
-        userStore.initCurrentUser()
-            .then( () =>{
-                this.setState({isLoading: false})
-            });
     }
 
     gameStateHandler = (status: boolean) => {

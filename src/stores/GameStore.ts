@@ -16,7 +16,7 @@ export default class GameStore {
         this.team = new Team();
     }
 
-    @action setRoom(room: Room) {
+    @action  setRoom(room: Room) {
         console.log("in set room");
         this.room = room;
     }
