@@ -8,6 +8,7 @@ import {User} from "../../../types/user";
 import Timer from "./timer/timer";
 import GameStore from "../../../stores/GameStore";
 import {observer} from "mobx-react";
+import {action} from "mobx";
 
 
 // Stores
@@ -32,6 +33,17 @@ class Home extends React.Component<IProps, IState> {
             isPending: false,
         };
 
+        this.subscribeToWebSocketEvents();
+    }
+
+    @action
+    joinQueue = () => {
+        // Send JoinQueue event
+        socketStore.emitEvent(webSocketEvents.joinQueue, this.props.user);
+    };
+
+
+    subscribeToWebSocketEvents = () => {
         // Handle join queue response events
         socketStore.getEvent(webSocketEvents.joinQueue)
             .pipe(map(object => object.status))
@@ -56,13 +68,9 @@ class Home extends React.Component<IProps, IState> {
         socketStore.getEvent(webSocketEvents.startChat)
             .subscribe((data: object) => {
                 LoggerService.debug("In start chat event :", data);
+                // TODO - update team
                 this.props.gameStateHandler(true);
             });
-    }
-
-    joinQueue = () => {
-        // Send JoinQueue event
-        socketStore.emitEvent(webSocketEvents.joinQueue, {id: this.props.user.id});
     };
 
     convertRoomResponse = (data: any): Room => {
@@ -78,7 +86,7 @@ class Home extends React.Component<IProps, IState> {
 
 
     render() {
-        const {id} = gameStore.getRoom;
+        const id = gameStore.getId;
         return (
             <div>
                 <button onClick={this.joinQueue}>Join Queue</button>

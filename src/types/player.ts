@@ -1,3 +1,4 @@
 export class Player {
-    nickName: string;
+    id: number;
+    nickname: string;
 }

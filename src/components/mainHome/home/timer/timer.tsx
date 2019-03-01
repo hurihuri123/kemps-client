@@ -37,10 +37,6 @@ class Timer extends React.Component<IProps,IState> {
         })
     }
 
-    componentWillUnmount() {
-        console.log('component unmount');
-    }
-
     handleTick = (): void => {
         this.tick(); // Set timer
         // Test timer status
