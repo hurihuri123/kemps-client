@@ -16,9 +16,13 @@ export class HttpService implements IHttp {
     get(url: string, queryParams?: object, headers?: any): Promise<any> {
         return axios.get(url, {
             params: queryParams,
+            timeout: 600000,
             withCredentials: true,
             headers
-        });
+        })
+            .catch(err => {
+                alert(err);
+            })
     }
 
     post(url: string, body?: any, headers?: any): Promise<any> {

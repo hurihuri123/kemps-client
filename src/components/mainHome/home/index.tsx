@@ -9,11 +9,13 @@ import Timer from "./timer/timer";
 import GameStore from "../../../stores/GameStore";
 import {observer} from "mobx-react";
 import {action, computed} from "mobx";
+import UserStore from "../../../stores/UserStore";
 
 
 // Stores
 const socketStore:  SocketStore       = rootStores[Stores.SOCKET];
 const gameStore:    GameStore       = rootStores[Stores.GAME];
+const userStore: UserStore = rootStores[Stores.USER];
 
 interface IProps {
     user: User;

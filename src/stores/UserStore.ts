@@ -8,36 +8,46 @@ import {User} from "../types/user";
 
 // Rxjs
 import {filter, map} from 'rxjs/operators';
+import {action, computed, observable} from "mobx";
 
 
 
 class UserStore {
     // Variable Definition
+    @observable
     user: User;
+
     socketStore: SocketStore;
 
     constructor(socketStore: SocketStore) {
         this.socketStore = socketStore;
-        this.initCurrentUser();
-
-
-        // Handle getUid events
-        this.socketStore.getEvent(webSocketEvents.userId)
-            .subscribe((data: object) => {
-                LoggerService.debug("In userId event with :", data);
-                this.socketStore.emitEvent(webSocketEvents.userId, {id: this.user.id});
-            });
+        this.initCurrentUser()
+            .then( () => {
+                // Handle getUid events
+                this.socketStore.getEvent(webSocketEvents.userId)
+                    .subscribe((data: object) => {
+                        LoggerService.debug("In userId event with :", data);
+                        this.socketStore.emitEvent(webSocketEvents.userId, {id: this.user.id, nickname: this.user.nickname});
+                    });
+            })
     }
 
-    initCurrentUser(): void {
+    @action
+    initCurrentUser(): Promise<any> {
         // Send get request for it's data
         // Connect to socket io with the ID
         /* Use observables */
-        this.user = UserService.getUser();
-        this.socketStore.connect();
+        return UserService.getUser()
+            .then( (user: User) => {
+                return this.user = user;
+            })
+            .then( () => {
+                this.socketStore.connect();
+            })
     }
 
-    getUser(): User{
+    @computed
+    get getUser(): User{
         return this.user;
     }
 }

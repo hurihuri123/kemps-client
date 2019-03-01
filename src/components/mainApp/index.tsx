@@ -19,6 +19,7 @@ class MainApp extends React.Component<IProps,IState> {
         this.state = {
             inGame: false
         };
+        console.log("user is : ", this.props.user);
     }
 
     gameStateHandler = (status: boolean) => {
