@@ -18,7 +18,7 @@ class MainGame extends React.Component<IProps,IState> {
     constructor(props: IProps) {
         super(props);
         this.state = {
-            inChat: false
+            inChat: true
         };
 
     }

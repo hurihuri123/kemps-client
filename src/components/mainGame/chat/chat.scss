@@ -1,4 +1,20 @@
+$header-height: 40px;
+$footer-height: 40px;
+
 .chat-container {
-  height: 100%;
-  background-color: red;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+
+  .header {
+    height: $header-height;
+    width: 100%;
+  }
+  .body {
+    height: 100%;
+  }
+  .footer {
+    height: $header-height;
+    width: 100%;
+  }
 }

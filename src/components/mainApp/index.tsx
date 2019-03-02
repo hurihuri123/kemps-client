@@ -24,7 +24,7 @@ class MainApp extends React.Component<IProps,IState> {
     constructor(props: IProps) {
         super(props);
         this.state = {
-            inGame: false,
+            inGame: true,
             user: userStore.getUser
         };
     }
