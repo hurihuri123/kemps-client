@@ -12,7 +12,9 @@ class Chat extends React.Component<IProps> {
 
     render() {
         return (
-            <div>chat</div>
+            <div className={"chat-container"}>
+                hi
+            </div>
         );
     }
 }

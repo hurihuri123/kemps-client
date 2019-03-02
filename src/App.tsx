@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route   } from 'react-router-dom'
-import './App.css';
-import {rootStores, Stores} from "./stores";
+import './App.scss';
 import MainApp from "./components/mainApp/index";
 import MainAuth from "./components/mainAuth/index";
-import UserStore from "./stores/UserStore";
-import {User} from "./types/user";
-import {webSocketEvents} from "./stores/SocketStore";
-import LoggerService from "./services/LoggerService";
 
 interface IProps {
 }
