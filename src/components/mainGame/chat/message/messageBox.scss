@@ -1,0 +1,11 @@
+.message-container {
+  width: 80%;
+  display: flex;
+  padding: 0 10px;
+  align-items: center;
+  .user {
+    margin-right: 5px;
+    font-weight: bold;
+    font-size: 1.1em;
+  }
+}

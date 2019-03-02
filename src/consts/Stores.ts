@@ -3,7 +3,8 @@
 enum Stores {
     USER,
     SOCKET,
-    GAME
+    GAME,
+    CONVERSATION
 }
 
 export default Stores;

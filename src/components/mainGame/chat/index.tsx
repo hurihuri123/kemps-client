@@ -1,6 +1,9 @@
 import * as React from 'react';
+import {Message} from "../../../types/message";
+import MessageBox from "./message/messageBox";
 
 interface IProps {
+    messages: Message[]
 }
 
 
@@ -10,18 +13,39 @@ class Chat extends React.Component<IProps> {
     }
 
 
+    renderMessages = () => {
+      // Variable Definition
+      const {messages} = this.props;
+
+      // Code Section
+        return messages.map( (message:Message) =>
+            <MessageBox message={message}/>
+        )
+
+    };
+
+
     render() {
         return (
             <div className={"chat-container"}>
+
                 <div className={"header"}>
-                    header
+                    <div className={"padding"}>
+                        <div className={"username"}>Daniel Huri</div>
+                    </div>
                 </div>
+
                 <div className={"body"}>
-                    body
+                    {this.renderMessages()}
                 </div>
+
                 <div className={"footer"}>
-                    footer
+                    <div className={"text-container"}>
+                        <textarea rows={1} ></textarea>
+                    </div>
+                    <button className={"send-message-container"}>send message</button>
                 </div>
+
             </div>
         );
     }

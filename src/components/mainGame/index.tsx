@@ -4,6 +4,10 @@ import Chat from "./chat/index";
 import Game from "./game/index";
 import {User} from "../../types/user";
 import {Room} from "../../types/room";
+import GameStore from "../../stores/GameStore";
+import {rootStores, Stores} from "../../stores";
+import ConversationStore from "../../stores/ConversationStore";
+import {observer} from "mobx-react";
 
 interface IProps {
     user: User;
@@ -14,6 +18,9 @@ interface IState {
     inChat: boolean;
 }
 
+const conversationStore: ConversationStore = rootStores[Stores.CONVERSATION];
+
+@observer
 class MainGame extends React.Component<IProps,IState> {
     constructor(props: IProps) {
         super(props);
@@ -23,11 +30,12 @@ class MainGame extends React.Component<IProps,IState> {
 
     }
     render() {
+        const {messages} = conversationStore;
         return (
             <Router>
                 <Route>
                     {this.state.inChat ?
-                        <Chat/> :
+                        <Chat messages={messages} /> :
                         <Game/>
                     }
                 </Route>

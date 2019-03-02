@@ -2,6 +2,7 @@ import UserStore from "./UserStore";
 import {SocketStore} from "./SocketStore";
 import Stores from "../consts/Stores";
 import GameStore from "./GameStore";
+import ConversationStore from "./ConversationStore";
 
 /*
 Stores are used to hold instances
@@ -12,6 +13,7 @@ Stores are used to hold instances
 const socketStore   = new SocketStore();
 const userStore     = new UserStore(socketStore);
 const gameStore     = new GameStore();
+const conversationStore = new ConversationStore();
 
 
 // Save the instance in global object
@@ -20,7 +22,8 @@ const gameStore     = new GameStore();
 const rootStores = {
     [Stores.USER]: userStore,
     [Stores.SOCKET]: socketStore,
-    [Stores.GAME]: gameStore
+    [Stores.GAME]: gameStore,
+    [Stores.CONVERSATION]: conversationStore
 };
 
 export {rootStores, Stores};
