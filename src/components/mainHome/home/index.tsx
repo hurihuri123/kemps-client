@@ -86,12 +86,13 @@ class Home extends React.Component<IProps, IState> {
 
 
     render() {
-        const id = gameStore.getId;
+
+        const room = gameStore.getRoom;
         return (
             <div>
                 <button onClick={this.joinQueue}>Join Queue</button>
-                {"game room "  + id}
-                {id ? <Timer user={this.props.user} /> : null}
+                {"game room "  + room.id}
+                {false ? <Timer user={this.props.user} /> : null}
             </div>
         );
     }

@@ -1,14 +1,15 @@
 import { action, computed, IObservableArray, observable } from "mobx";
 import {Room} from "../types/room";
 import {Team} from "../types/team";
+import {observer} from "mobx-react";
+
 
 export default class GameStore {
+
 
     @observable
     room: Room;
 
-    @observable
-    id: number;
 
     @observable
     team: Team;
@@ -17,30 +18,19 @@ export default class GameStore {
     constructor() {
         this.room = new Room();
         this.team = new Team();
-        this.id = -1;
     }
 
-    @action setRoom(room: Room) {
-        console.log("in set room");
+    @action
+    setRoom(room: Room) {
         this.room = room;
+        console.log("set room : ", this.room);
     }
 
     @computed get getRoom():Room {
-        console.log("in get room ");
         return this.room;
     }
 
     @computed get roomId() {
         return this.room.id || -1;
-    }
-
-    @action setId(room: number) {
-        console.log("in set id");
-        this.id = room;
-    }
-
-    @computed get getId():number {
-        console.log("in get room ");
-        return this.id;
     }
 }
