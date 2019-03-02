@@ -30,7 +30,7 @@ class MainGame extends React.Component<IProps,IState> {
 
     }
     render() {
-        const {messages} = conversationStore;
+        const messages = conversationStore.getMessages;
         return (
             <Router>
                 <Route>
