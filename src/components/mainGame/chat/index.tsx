@@ -24,8 +24,8 @@ class Chat extends React.Component<IProps> {
       const {messages} = this.props;
 
       // Code Section
-        return messages.map( (message:Message) =>
-            <MessageBox message={message}/>
+        return messages.map( (message:Message, index: number) =>
+            <MessageBox key={index} message={message}/>
         )
 
     };

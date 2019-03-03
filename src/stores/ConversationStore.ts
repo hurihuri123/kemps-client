@@ -15,7 +15,12 @@ export default class ConversationStore {
         message1.content = "hi";
         message1.user = new User();
         message1.user.nickname = "huri";
-        this.messages = [message1];
+        const message2 = new Message();
+        message2.content = "bye";
+        message2.user = new User();
+        message2.user.id = 1;
+        message2.user.nickname = "nothuri";
+        this.messages = [message1, message2];
         console.log(this.messages);
     }
 
@@ -27,6 +32,7 @@ export default class ConversationStore {
         message1.user = new User();
         message1.user.nickname = "huri";
         this.messages.push(message1);
+        console.log("messages after push : ", this.messages);
     };
 
     @computed get getMessages(): Message[] {
